@@ -1,0 +1,100 @@
+/*
+Referencias: http://stackoverflow.com/questions/16658419/huffman-tree-in-java
+             http://codereview.stackexchange.com/questions/44473/huffman-code-implementation
+             http://www.inf.fu-berlin.de/users/block/Huffman.java
+             https://www.reddit.com/r/javaexamples/comments/3gatvr/intermediate_huffman_tree_encoding/
+ */
+package hfm;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+
+public class Hfm {
+    private Nodo root;
+    private Nodo nm;
+    private ArrayList i;
+    private ArrayList <Nodo> h;
+    private ArrayList <Nodo> f;
+    
+    public Hfm()
+    {
+        root = new Nodo();
+        i = new ArrayList();
+        h = new ArrayList<Nodo>();
+        f = new ArrayList<Nodo>();
+    }
+    public void setHfm(ArrayList <Nodo> h) {
+        this.h=h;
+    }
+    public ArrayList <Nodo> getHfm() {
+        return h;
+    }
+    public void setRoot(Nodo root) {
+        this.root = root;
+    }
+    public Nodo getRoot() {
+        return root;
+    }
+    public void setInicial(ArrayList i) {
+        this.i=i;
+    }
+    public ArrayList getInicial() {
+        return i;
+    }
+    public void setFinal(ArrayList f) {
+        this.f=f;
+    }
+    public ArrayList getFinal() {
+        return f;
+    }
+    
+    public void crearArbol(ArrayList ii){
+        boolean bien=false;
+        root = new Nodo();
+        Nodo nt;
+        i=ii;
+        nm=min(i);
+        i.remove(nm);
+        f.add(nm);
+        
+        root.setIzquierda(nm);
+        nm=min(i);
+        i.remove(nm);
+        f.add(nm);
+        root.setDerecha(nm);
+        root.setFrecuencia((root.getIzquierda()).getFrecuencia()+root.getDerecha().getFrecuencia());
+       
+        while (bien==false){
+                nt=new Nodo();
+                nt.setDerecha(root);
+                root=nt;
+                nm=new Nodo();
+                nm=min(i);
+                f.add(nm);
+                i.remove(nm);
+                root.setIzquierda(nm);
+                root.setFrecuencia((root.getDerecha()).getFrecuencia()+root.getIzquierda().getFrecuencia());
+            if (i.size()==0){
+                bien=true;
+            }      
+        }
+    }
+    
+    public Nodo min(ArrayList ii){
+        boolean bm=false;
+        int m = ((Nodo)ii.get(0)).getFrecuencia();
+        Nodo nm= (Nodo)ii.get(0);
+        Iterator iterador = ii.iterator();
+        
+        while (iterador.hasNext()){
+            Nodo e=(Nodo) iterador.next();
+            if (m>e.getFrecuencia()){
+                m=e.getFrecuencia();
+                nm=e;
+                bm=true;
+            }
+        }
+        return nm;
+    }
+    
+}
