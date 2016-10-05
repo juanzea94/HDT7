@@ -1,0 +1,61 @@
+package hfm;
+public class Nodo
+{
+    private String cadena; 
+    private int frecuencia;
+    private Nodo derecha;
+    private char caracter;
+    private Nodo izquierda;
+
+    public Nodo(int frecuencia, caracter c, Nodo izquierda, Nodo derecha){
+        this.caracter = caracter;
+        this.derecha = derecha;
+        this.izquierda = izquierda;
+        this.frecuencia = frecuencia;
+    }
+    public Nodo(){
+        caracter=0;
+    }
+    public void setCaracter(char caracter) {
+        this.caracter=caracter;
+    }
+    public char getCaracter() {
+        return caracter;
+    }
+    public void setFrecuencia(int frecuencia) {
+        this.frecuencia = frecuencia;
+    }
+    public int getFrecuencia() {
+        return frecuencia;
+    }
+    public void setDerecha(Nodo derecha) {
+        this.derecha=derecha;
+    }
+    public Nodo getDerecha() {
+        return derecha;
+    }
+    public void setIzquierda(Nodo izquierda) {
+        this.izquierda=izquierda;
+    }
+    public Nodo getIzquierda() {
+        return izquierda;
+    }
+    public void setCadena(String cadena) {
+        this.cadena = cadena;
+    }
+    public String getCadena() {
+        return cadena;
+    }
+    
+    public Nodo agregarNodo(Nodo n1, Nodo n2){
+        if(n2.getFrecuencia() > n1.getFrecuencia()){
+            derecha = n1;
+            izquierda = n2;
+        }else{
+            derecha = n2;
+            izquierda = n1;
+        }
+        frecuencia= n1.getFrecuencia() + n2.getFrecuencia();
+        return this;
+    } 
+}
